@@ -12,11 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@xmcl/core": "^0.52.0",
-    "@xmcl/installer": "^0.17.0",
-    "@xmcl/nbt": "^1.0.0",
-    "electron-store": "^10.1.0",
-    "node-fetch": "^3.3.2"
+    "minecraft-launcher-core": "^3.18.2"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
