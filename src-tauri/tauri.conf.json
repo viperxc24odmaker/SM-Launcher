@@ -5,5 +5,5 @@
   "identifier":"com.sm.launcher",
   "build":{"beforeDevCommand":"npm run dev","devUrl":"http://localhost:5173","beforeBuildCommand":"npm run build","frontendDist":"../dist/renderer"},
   "app":{"windows":[{"label":"main","title":"SM Launcher","width":1440,"height":900,"minWidth":1100,"minHeight":700,"resizable":true,"fullscreen":false}],"security":{"csp":null}},
-  "bundle":{"active":true,"targets":["nsis","msi"],"createUpdaterArtifacts":false}
+  "bundle":{"active":true,"targets":["nsis","msi"],"icon":["icons/icon.ico"]}
 }
