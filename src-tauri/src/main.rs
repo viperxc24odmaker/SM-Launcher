@@ -1,5 +1,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    sm_launcher_lib::run();
+    sc_launcher_lib::run();
 }
