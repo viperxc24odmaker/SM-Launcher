@@ -1,0 +1,19 @@
+import { contextBridge, ipcRenderer } from 'electron';
+
+contextBridge.exposeInMainWorld('smLauncher', {
+  instances: {
+    list: () => ipcRenderer.invoke('instances:list'),
+    create: (input: unknown) => ipcRenderer.invoke('instances:create', input),
+    delete: (id: string) => ipcRenderer.invoke('instances:delete', id),
+    launch: (id: string) => ipcRenderer.invoke('instances:launch', id)
+  },
+  accounts: {
+    list: () => ipcRenderer.invoke('accounts:list'),
+    offline: (username: string) => ipcRenderer.invoke('accounts:offline', username),
+    elyby: (input: unknown) => ipcRenderer.invoke('accounts:elyby', input),
+    microsoft: () => ipcRenderer.invoke('accounts:microsoft'),
+    remove: (id: string) => ipcRenderer.invoke('accounts:remove', id),
+    setActive: (id: string) => ipcRenderer.invoke('accounts:set-active', id)
+  },
+  openExternal: (url: string) => ipcRenderer.invoke('app:open-external', url)
+});
