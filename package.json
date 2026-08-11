@@ -4,34 +4,8 @@
   "private": true,
   "description": "SM Launcher - a professional Minecraft Java launcher with accounts, instances, mods and customization.",
   "main": "dist/main/main.js",
-  "scripts": {
-    "dev": "vite --config vite.config.ts",
-    "build": "tsc && vite build --config vite.config.ts",
-    "start": "electron .",
-    "package": "npm run build && electron-builder",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "minecraft-launcher-core": "^3.18.2",
-    "prismarine-auth": "^3.1.1"
-  },
-  "devDependencies": {
-    "@types/node": "^22.15.0",
-    "@vitejs/plugin-react": "^4.4.1",
-    "electron": "^37.2.0",
-    "electron-builder": "^26.0.12",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.0"
-  },
-  "build": {
-    "appId": "com.sm.launcher",
-    "productName": "SM Launcher",
-    "directories": { "output": "release" },
-    "files": ["dist/**/*", "package.json"],
-    "win": { "target": "nsis" },
-    "linux": { "target": "AppImage" },
-    "mac": { "target": "dmg" }
-  }
+  "scripts": {"dev":"vite --config vite.config.ts","build":"tsc && vite build --config vite.config.ts","start":"electron .","package":"npm run build && electron-builder","typecheck":"tsc --noEmit"},
+  "dependencies": {"minecraft-launcher-core":"^3.18.2","prismarine-auth":"^3.1.1"},
+  "devDependencies": {"@types/node":"^22.15.0","@types/react":"^19.1.8","@types/react-dom":"^19.1.6","@vitejs/plugin-react":"^4.4.1","electron":"^37.2.0","electron-builder":"^26.0.12","react":"^19.1.0","react-dom":"^19.1.0","typescript":"^5.8.3","vite":"^7.0.0"},
+  "build":{"appId":"com.sm.launcher","productName":"SM Launcher","directories":{"output":"release"},"files":["dist/**/*","package.json"],"win":{"target":"nsis"},"linux":{"target":"AppImage"},"mac":{"target":"dmg"}}
 }
