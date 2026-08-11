@@ -33,6 +33,16 @@ function write(value: Instance[]) {
   fs.writeFileSync(dataPath(), JSON.stringify(value, null, 2), 'utf8');
 }
 
+function javaMajorVersion(version: string) {
+  const match = version.match(/^(?:1\.)?(\d+)/);
+  if (!match) return 21;
+  const n = Number(match[1]);
+  if (n <= 8) return 8;
+  if (n <= 16) return 8;
+  if (n <= 20) return 17;
+  return 21;
+}
+
 export class InstanceManager {
   list() { return read(); }
 
@@ -68,7 +78,14 @@ export class InstanceManager {
     const launcher = new Client();
     launcher.on('debug', message => console.log('[SM Launcher]', message));
     launcher.on('data', message => console.log('[Minecraft]', message));
+    launcher.on('close', code => console.log('[Minecraft] exited with code', code));
 
+    const root = rootPath();
+    fs.mkdirSync(root, { recursive: true });
+    fs.mkdirSync(instance.gameDir, { recursive: true });
+
+    // minecraft-launcher-core downloads the official version manifest/assets/libraries
+    // automatically when the requested version is not already installed.
     const opts: any = {
       authorization: {
         access_token: account.accessToken,
@@ -78,18 +95,21 @@ export class InstanceManager {
         user_properties: '{}',
         meta: { type: account.kind === 'microsoft' ? 'msa' : 'mojang', demo: false }
       },
-      root: rootPath(),
+      root,
       version: { number: instance.version, type: 'release' },
-      memory: { min: `${instance.minMemory}M`, max: `${instance.maxMemory}M` },
+      memory: { min: `${Math.max(512, instance.minMemory)}M`, max: `${Math.max(instance.minMemory, instance.maxMemory)}M` },
       overrides: { gameDirectory: instance.gameDir },
       customArgs: instance.jvmArgs
     };
 
     if (instance.javaPath) opts.javaPath = instance.javaPath;
+    else opts.java = javaMajorVersion(instance.version);
+
     if (instance.resolution) {
-      opts.features = ['has_custom_resolution'];
+      opts.features = { has_custom_resolution: true };
       opts.customLaunchArgs = ['--width', String(instance.resolution.width), '--height', String(instance.resolution.height)];
     }
+
     return launcher.launch(opts);
   }
 }
