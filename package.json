@@ -1,0 +1,40 @@
+{
+  "name": "sm-launcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SM Launcher - a professional Minecraft Java launcher with accounts, instances, mods and customization.",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "dev": "vite --config vite.config.ts",
+    "build": "tsc && vite build --config vite.config.ts",
+    "start": "electron .",
+    "package": "npm run build && electron-builder",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xmcl/core": "^0.52.0",
+    "@xmcl/installer": "^0.17.0",
+    "@xmcl/nbt": "^1.0.0",
+    "electron-store": "^10.1.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0"
+  },
+  "build": {
+    "appId": "com.sm.launcher",
+    "productName": "SM Launcher",
+    "directories": { "output": "release" },
+    "files": ["dist/**/*", "package.json"],
+    "win": { "target": "nsis" },
+    "linux": { "target": "AppImage" },
+    "mac": { "target": "dmg" }
+  }
+}
