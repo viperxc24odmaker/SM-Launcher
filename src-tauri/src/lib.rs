@@ -1,7 +1,9 @@
 mod launcher;
 mod modrinth;
+mod minecraft;
 use launcher::{detect_java, launch_process, list_instances, save_instances};
 use modrinth::{install_modpack, modrinth_search};
+use minecraft::install_minecraft;
 use tauri::Manager;
 
 #[tauri::command]
@@ -11,7 +13,7 @@ fn app_info() -> serde_json::Value { serde_json::json!({"name":"SM Launcher","ve
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![app_info,list_instances,save_instances,detect_java,launch_process,modrinth_search,install_modpack])
+        .invoke_handler(tauri::generate_handler![app_info,list_instances,save_instances,detect_java,launch_process,modrinth_search,install_modpack,install_minecraft])
         .setup(|app| { if let Some(window)=app.get_webview_window("main"){ let _=window.set_title("SM Launcher"); } Ok(()) })
         .run(tauri::generate_context!()).expect("error while running SM Launcher");
 }
