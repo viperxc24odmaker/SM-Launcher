@@ -10,14 +10,51 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        include:
+          - os: windows-latest
+            artifact: windows
+          - os: ubuntu-latest
+            artifact: linux
+          - os: macos-latest
+            artifact: macos
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
-      - run: npm run typecheck
-      - run: npm run build
-      - run: npx electron-builder --publish never
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build renderer and main process
+        run: npm run build
+      - name: Package Electron application
+        run: npx electron-builder --publish never
+      - name: Upload Windows installer
+        if: matrix.artifact == 'windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: SM-Launcher-Windows
+          path: release/*.exe
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload Linux package
+        if: matrix.artifact == 'linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: SM-Launcher-Linux
+          path: release/*.AppImage
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload macOS package
+        if: matrix.artifact == 'macos'
+        uses: actions/upload-artifact@v4
+        with:
+          name: SM-Launcher-macOS
+          path: release/*.dmg
+          if-no-files-found: error
+          retention-days: 14
