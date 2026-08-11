@@ -15,5 +15,6 @@ contextBridge.exposeInMainWorld('smLauncher', {
     remove: (id: string) => ipcRenderer.invoke('accounts:remove', id),
     setActive: (id: string) => ipcRenderer.invoke('accounts:set-active', id)
   },
+  onMicrosoftCode: (callback: (event: unknown, code: unknown) => void) => ipcRenderer.on('auth:microsoft-code', callback),
   openExternal: (url: string) => ipcRenderer.invoke('app:open-external', url)
 });
