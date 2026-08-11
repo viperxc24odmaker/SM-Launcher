@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "minecraft-launcher-core": "^3.18.2"
+    "minecraft-launcher-core": "^3.18.2",
+    "prismarine-auth": "^3.1.1"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
