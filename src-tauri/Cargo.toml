@@ -1,12 +1,12 @@
 [package]
-name = "sm-launcher"
-version = "0.1.0"
-description = "SM Launcher - Minecraft Java launcher"
-authors = ["SM Launcher"]
+name = "sc-launcher"
+version = "0.2.0"
+description = "SC Launcher - Minecraft Java launcher"
+authors = ["SC Launcher"]
 edition = "2021"
 
 [lib]
-name = "sm_launcher_lib"
+name = "sc_launcher_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
